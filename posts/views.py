@@ -1,11 +1,16 @@
 from __future__ import unicode_literals
-from django.shortcuts import render,get_object_or_404
+from django.shortcuts import render,get_object_or_404,redirect
 from posts.models import *
+from .forms import *
 
 def post_create(request):
+    form = PostForm(request.POST or None)
+    if form.is_valid():
+        form.save()
+        return redirect("list")
     context = {
     "title": "Create",
-    "user": request.user
+    "form": form,
     }
     return render(request, 'post_create.html', context)
 

@@ -7,7 +7,7 @@
 <p>Logged in as: {{user}}</p>
 <h1>The Post {{title}} Page</h1>
   {% for object in object_list %}
-        {{object.title}} <br>
+        <h1><a href="/posts/detail/{{object.id}}">{{object.title}} </a></h1><br>
         {{object.content}} <br>
         {{object.timestamp}} <br>
         {{object.updated}} <br>
