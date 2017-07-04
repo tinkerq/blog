@@ -2,11 +2,13 @@ from __future__ import unicode_literals
 from django.shortcuts import render,get_object_or_404,redirect
 from posts.models import *
 from .forms import *
+from django.contrib import messages
 
 def post_create(request):
     form = PostForm(request.POST or None)
     if form.is_valid():
         form.save()
+        messages.success(request, "Successfully Created!")
         return redirect("list")
     context = {
     "title": "Create",
