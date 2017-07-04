@@ -21,7 +21,6 @@ def post_detail(request,post_id):
     context = {
     "instance": instance,
     "title": "Detail",
-    "user": request.user
     }
     return render(request, 'post_detail.html', context)
 
@@ -30,7 +29,6 @@ def post_list(request):
 	context = {
 	"object_list": object_list,
 	"title": "List",
-	"user": request.user
 	}
 	return render(request, 'post_list.html', context)
 
@@ -39,6 +37,7 @@ def post_update(request, post_id):
     form = PostForm(request.POST or None, instance = instance)
     if form.is_valid():
         form.save()
+        messages.success(request, "Successfully Edited!")
         return redirect(instance.get_absolute_url())
     context = {
     "form":form,
@@ -47,9 +46,8 @@ def post_update(request, post_id):
     }
     return render(request, 'post_update.html', context)
 
-def post_delete(request):
-    context = {
-    "title": "Delete",
-    "user": request.user
-    }
-    return render(request, 'post_delete.html', context)
+def post_delete(request,post_id):
+    instance = get_object_or_404(Post, id=post_id)
+    instance.delete()
+    messages.success(request, "Successfully Deleted!")
+    return redirect("list")
