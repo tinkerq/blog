@@ -6,7 +6,7 @@ from django.contrib import messages
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 def post_create(request):
-    form = PostForm(request.POST or None)
+    form = PostForm(request.POST or None, request.FILES or None)
     if form.is_valid():
         form.save()
         messages.success(request, "Successfully Created!")
@@ -46,7 +46,7 @@ def post_list(request):
 
 def post_update(request, post_id):
     instance = get_object_or_404(Post, id=post_id)
-    form = PostForm(request.POST or None, instance = instance)
+    form = PostForm(request.POST or None, request.FILES or None,instance = instance)
     if form.is_valid():
         form.save()
         messages.success(request, "Successfully Edited!")
