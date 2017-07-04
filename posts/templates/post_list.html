@@ -1,18 +1,29 @@
 {% extends "base.html" %}
 
 {% block title %}
-    List
+{{title}}
 {% endblock title %}
 
-
 {% block content %}
-<h1>The Post {{title}} Page</h1>
-  {% for object in object_list %}
-        <h1><a href="/posts/detail/{{object.id}}">{{object.title}} </a></h1><br>
-        {{object.content}} <br>
-        {{object.timestamp}} <br>
-        {{object.updated}} <br>
-        {{object.id}} <br>
-        <br><br>
-  {% endfor %}
-{% endblock %}
+    <h1>{{title}}</h1>
+    <div class="row">
+    {% for object in object_list %}
+        <div class="col-sm-6 col-md-4">
+        	<div class="thumbnail">
+        		<div class="captio">
+            		<h3>{{object.title}}</h3>
+            		<p>{{object.content|linebreaks|truncatechars:100}} <br>
+            		{{object.timestamp}} <br>
+           			{{object.updated}} <br>
+            		{{object.id}} <br>
+            		</p>
+            		<p>
+            		<p><a href="{{ object.get_absolute_url }}" class="btn btn-info" role="button">More</a></p>
+            		</p>
+        		</div>
+        	</div>
+        </div>
+    {% endfor %}
+    </div>
+
+{% endblock content %}
