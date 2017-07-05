@@ -9,6 +9,8 @@ from urllib.parse import quote
 
 
 def post_create(request):
+    if not (request.user.is_staff or request.user.is_superuser):
+        raise Http404
     form = PostForm(request.POST or None, request.FILES or None)
     if form.is_valid():
         form.save()
@@ -49,6 +51,8 @@ def post_list(request):
     return render(request, 'post_list.html', context)
 
 def post_update(request, post_slug):
+    if not (request.user.is_staff or request.user.is_superuser):
+        raise Http404
     instance = get_object_or_404(Post, slug=post_slug)
     form = PostForm(request.POST or None, request.FILES or None,instance = instance)
     if form.is_valid():
@@ -63,6 +67,8 @@ def post_update(request, post_slug):
     return render(request, 'post_update.html', context)
 
 def post_delete(request,post_slug):
+    if not (request.user.is_staff or request.user.is_superuser):
+        raise Http404
     instance = get_object_or_404(Post, slug=post_slug)
     instance.delete()
     messages.success(request, "Successfully Deleted!")
