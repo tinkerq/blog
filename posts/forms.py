@@ -4,4 +4,8 @@ from .models import *
 class PostForm(forms.ModelForm):
     class Meta:
         model = Post
-        fields = ['image','title', 'content']
+        fields = ['title','draft','publish', 'content','image']
+
+        widgets={
+        'publish': forms.DateInput(attrs={"type":"date"}),
+        }
