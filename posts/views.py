@@ -4,6 +4,9 @@ from posts.models import *
 from .forms import *
 from django.contrib import messages
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from urllib.parse import quote
+
+
 
 def post_create(request):
     form = PostForm(request.POST or None, request.FILES or None)
@@ -22,6 +25,7 @@ def post_detail(request,post_slug):
     context = {
     "instance": instance,
     "title": "Detail",
+    "share_string": quote(instance.content)
     }
     return render(request, 'post_detail.html', context)
 
