@@ -13,7 +13,9 @@ def post_create(request):
         raise Http404
     form = PostForm(request.POST or None, request.FILES or None)
     if form.is_valid():
-        form.save()
+        post = form.save(commit = False)
+        post.author = request.user
+        post.save()
         messages.success(request, "Successfully Created!")
         return redirect("list")
     context = {

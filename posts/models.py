@@ -2,8 +2,10 @@ from django.db import models
 from django.urls import reverse
 from django.template.defaultfilters import slugify
 from django.db.models.signals import pre_save
+from django.conf import settings
 
 class Post(models.Model):
+    author = models.ForeignKey(settings.AUTH_USER_MODEL, default=1)
     title = models.CharField(max_length=255)
     slug = models.SlugField(unique=True)
     image = models.ImageField(null=True, blank=True, upload_to="post_images")
@@ -36,3 +38,5 @@ def pre_save_post_reciever(sender, instance, *args, **kwargs):
         instance.slug=create_slug(instance)
 
 pre_save.connect(pre_save_post_reciever,sender=Post)
+
+    
