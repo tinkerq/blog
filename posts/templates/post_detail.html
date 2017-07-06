@@ -32,7 +32,9 @@
        </a>
        <a href="https://www.linkedin.com/shareArticle?mini=true&url={{request.build_absolute_uri}}&title={{instance.title|urlify}}&summary={{instance.content|truncatechars:35|urlify}}&source={{request.build_absolute_uri}}">
 			Share on Linkedin
-			</a>
+			</a><br><br>
+			<div class="fb-like" data-href="{{request.build_absolute_uri}}" data-layout="button_count" data-action="like" data-size="small" data-show-faces="true" data-share="true"></div>
+			<div class="fb-comments" data-href="{{request.build_absolute_uri}}" data-numposts="5"></div>
     </div>
 
 </div>
