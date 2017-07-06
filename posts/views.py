@@ -6,6 +6,7 @@ from django.contrib import messages
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from urllib.parse import quote
 from django.utils import timezone
+from django.db.models import Q
 
 
 
@@ -43,7 +44,16 @@ def post_list(request):
     if request.user.is_staff or request.user.is_superuser:
         object_list = Post.objects.all()
 
-    paginator = Paginator(object_list, 5) # Show 5 contacts per page
+    query = request.GET.get("q")
+    if query:
+        object_list = object_list.filter(
+            Q(title__icontains=query)|
+            Q(content__icontains=query)|
+            Q(author__first_name__icontains=query)|
+            Q(author__last_name__icontains=query)
+            ).distinct()
+
+    paginator = Paginator(object_list, 5)
     page = request.GET.get('page')
     try:
         objects = paginator.page(page)
