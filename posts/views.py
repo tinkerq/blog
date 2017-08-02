@@ -8,6 +8,20 @@ from urllib.parse import quote
 from django.utils import timezone
 from django.db.models import Q
 
+# def usersignup(request):
+#     context={}
+#     form = UserSignup()
+#     context['form']=form
+#     if request.method == "POST":
+#         form=UserSignup(request.POST)
+#         if form.is_valid():
+#             user = form.save()
+#             username=user.username
+#             password=user.password
+#             user.set_password(password)
+#             user.save()
+#             auth_user= authenticate(username=username, password=password)
+#             login(request,auth_user)
 
 
 def post_create(request):
